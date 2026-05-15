@@ -586,7 +586,7 @@ nav {
   display: block;
 }
 
-/* NEW RESULTS DESIGN - PROGRESS BARS & METRIC CARDS */
+/* RESULTS DESIGN - PROGRESS BARS & METRIC CARDS */
 .results {
   display: none;
   margin-top: 24px;
@@ -600,7 +600,6 @@ nav {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Risk Header */
 .risk-header {
   background: var(--s2);
   border-radius: 20px;
@@ -636,7 +635,6 @@ nav {
   color: var(--muted);
 }
 
-/* Score Ring */
 .score-ring {
   display: flex;
   align-items: center;
@@ -661,7 +659,6 @@ nav {
   margin-top: 4px;
 }
 
-/* Metric Cards Grid */
 .metrics-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -701,7 +698,6 @@ nav {
   color: var(--muted);
 }
 
-/* Progress Bars Section */
 .progress-section {
   margin-bottom: 20px;
 }
@@ -739,7 +735,6 @@ nav {
 .fill-low { background: linear-gradient(90deg, #eab308, #fde047); }
 .fill-safe { background: linear-gradient(90deg, #10b981, #34d399); }
 
-/* Alert Cards */
 .alerts-section {
   margin-bottom: 20px;
 }
@@ -765,7 +760,6 @@ nav {
   color: var(--sub);
 }
 
-/* Final Advice */
 .final-advice {
   background: var(--s1);
   border: 1px solid var(--border);
@@ -899,10 +893,11 @@ footer strong {
       <button class="scan-btn" id="scanBtn" onclick="checkWallet()">🔍 Analyze Wallet</button>
     </div>
     <div class="quick-row">
-      <span class="qlabel">Quick tests:</span>
-      <button class="qbtn" onclick="setAddr('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb5')">Sample ETH</button>
-      <button class="qbtn" onclick="setAddr('bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq')">Sample BTC</button>
-      <button class="qbtn" onclick="setAddr('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa')">Satoshi's BTC</button>
+      <span class="qlabel">Try these:</span>
+      <button class="qbtn" onclick="setAddr('0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B')">Sample ETH (Vitalik)</button>
+      <button class="qbtn" onclick="setAddr('bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh')">Sample BTC 1</button>
+      <button class="qbtn" onclick="setAddr('3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy')">Sample BTC 2</button>
+      <button class="qbtn" onclick="setAddr('0xfb6916095ca1df60bb79Ce92ce3ea74c37c5d359')">Demo Wallet</button>
     </div>
 
     <div class="load-wrap" id="loadWrap">
@@ -1047,10 +1042,8 @@ function renderResults(data) {
   const shortAddr = data.wallet.length > 20 ? data.wallet.slice(0, 12) + '...' + data.wallet.slice(-8) : data.wallet;
   const score = data.risk_score || 0;
   
-  // Determine fill class for progress bars
   const fillClass = riskClass === 'high' ? 'fill-high' : (riskClass === 'medium' ? 'fill-medium' : (riskClass === 'low' ? 'fill-low' : 'fill-safe'));
   
-  // Build the results HTML
   const resultsHTML = `
     <div class="risk-header ${riskClass}">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
@@ -1131,7 +1124,6 @@ function renderResults(data) {
   
   $('results').innerHTML = resultsHTML;
   
-  // Populate alerts
   const alertsContainer = document.getElementById('alertsContainer');
   if (data.reasons && data.reasons.length) {
     alertsContainer.innerHTML = data.reasons.map(r => {
@@ -1144,7 +1136,6 @@ function renderResults(data) {
     alertsContainer.innerHTML = '<div class="alert-card info"><div class="alert-text">✨ No suspicious patterns detected. This wallet appears normal.</div></div>';
   }
   
-  // Set advice message
   let adviceMsg = '';
   if (riskClass === 'high') adviceMsg = '🚨 HIGH RISK: DO NOT interact with this wallet! Strong evidence of fraudulent activity detected. Report this address to security platforms immediately.';
   else if (riskClass === 'medium') adviceMsg = '⚡ MEDIUM RISK: Exercise extreme caution. Verify all information independently before any transaction. Consider using escrow services.';
