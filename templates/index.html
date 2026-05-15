@@ -553,6 +553,7 @@ nav {
   color: var(--pink);
 }
 
+/* NEW LOADING ANIMATION - PULSING HEARTS + BOUNCING DOTS */
 .load-wrap {
   display: none;
   text-align: center;
@@ -561,17 +562,100 @@ nav {
 .load-wrap.on {
   display: block;
 }
-.spin {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 20px;
-  border: 3px solid var(--border);
-  border-top-color: var(--pink);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
 }
-@keyframes spin {
-  to { transform: rotate(360deg); }
+
+/* Pulsing hearts animation */
+.pulse-hearts {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+.pulse-heart {
+  font-size: 2.5rem;
+  animation: heartPulse 1.4s ease-in-out infinite;
+}
+.pulse-heart:nth-child(1) { animation-delay: 0s; }
+.pulse-heart:nth-child(2) { animation-delay: 0.2s; }
+.pulse-heart:nth-child(3) { animation-delay: 0.4s; }
+.pulse-heart:nth-child(4) { animation-delay: 0.6s; }
+.pulse-heart:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+  }
+}
+
+/* Bouncing dots */
+.bouncing-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+.bounce-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  animation: bounceDot 1s ease-in-out infinite;
+}
+.bounce-dot:nth-child(1) { animation-delay: 0s; }
+.bounce-dot:nth-child(2) { animation-delay: 0.15s; }
+.bounce-dot:nth-child(3) { animation-delay: 0.3s; }
+.bounce-dot:nth-child(4) { animation-delay: 0.45s; }
+.bounce-dot:nth-child(5) { animation-delay: 0.6s; }
+
+@keyframes bounceDot {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.loading-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--pink);
+  margin: 16px 0 8px;
+  letter-spacing: 0.05em;
+}
+
+.loading-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+.lstep {
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  opacity: 0;
+  animation: fadeStep 0.4s forwards;
+}
+.lstep:nth-child(1) { animation-delay: 0.5s; }
+.lstep:nth-child(2) { animation-delay: 1.5s; }
+.lstep:nth-child(3) { animation-delay: 2.5s; }
+
+@keyframes fadeStep {
+  to { opacity: 1; }
 }
 
 .err-box {
@@ -842,7 +926,7 @@ footer strong {
     <div class="agent-head-main">
       <div class="agent-ava-main">🌙</div>
       <div class="agent-info-main">
-        <div class="agent-name-main">Luna — Your Security Guardian</div>
+        <div class="agent-name-main">Lily Luna — Your Security Guardian</div>
         <div class="agent-status-main">
           <span class="st-dot-main"></span>
           Online & Ready to Help
@@ -856,9 +940,9 @@ footer strong {
         <div class="msg-ava ai">🌙</div>
         <div>
           <div class="bubble">
-            ✨ Hi there! I'm Luna, your friendly crypto security guardian! ✨<br><br>
+            ✨ Hi there! I'm Lily Luna, your friendly crypto security guardian! ✨<br><br>
             I can help you understand blockchain fraud, explain wallet risks, and answer any crypto security questions you have. Try scanning a wallet below or ask me anything!<br><br>
-            <small style="opacity:0.7;">🌸 Built with care by Munira 🌸</small>
+            <small style="opacity:0.7;">🌸 Built by Munira 🌸</small>
           </div>
           <div class="msg-ts">Just now</div>
         </div>
@@ -866,9 +950,8 @@ footer strong {
     </div>
 
     <div class="qq-row-main">
-      <button class="qq-main" onclick="askQ('What is a dusting attack? 🦠')">🦠 Dusting attacks?</button>
-      <button class="qq-main" onclick="askQ('How do I spot a scam wallet? 🚨')">🚨 Spot scam wallets?</button>
-      <button class="qq-main" onclick="askQ('Best practices for crypto safety 🔒')">🔒 Safety tips</button>
+      <button class="qq-main" onclick="askQ('How can I spot a scam wallet? 🚨')">🚨 Spot scam wallets?</button>
+      <button class="qq-main" onclick="askQ('What are best practices for crypto safety 🔒')">🔒 Safety tips</button>
       <button class="qq-main" onclick="askQ('Explain my latest scan results 📊')">📊 Explain my scan</button>
     </div>
 
@@ -900,9 +983,30 @@ footer strong {
       <button class="qbtn" onclick="setAddr('0xfb6916095ca1df60bb79Ce92ce3ea74c37c5d359')">Demo Wallet</button>
     </div>
 
+    <!-- NEW LOADING ANIMATION -->
     <div class="load-wrap" id="loadWrap">
-      <div class="spin"></div>
-      <div class="load-title">🔍 Scanning blockchain...</div>
+      <div class="loading-container">
+        <div class="pulse-hearts">
+          <span class="pulse-heart">💖</span>
+          <span class="pulse-heart">💗</span>
+          <span class="pulse-heart">💕</span>
+          <span class="pulse-heart">💖</span>
+          <span class="pulse-heart">💗</span>
+        </div>
+        <div class="bouncing-dots">
+          <div class="bounce-dot"></div>
+          <div class="bounce-dot"></div>
+          <div class="bounce-dot"></div>
+          <div class="bounce-dot"></div>
+          <div class="bounce-dot"></div>
+        </div>
+        <div class="loading-text">✨ Lily Luna is analyzing the blockchain ✨</div>
+        <div class="loading-steps">
+          <div class="lstep">🌟 Connecting to secure nodes...</div>
+          <div class="lstep">🔍 Fetching transaction history...</div>
+          <div class="lstep">🛡️ Running security algorithms...</div>
+        </div>
+      </div>
     </div>
 
     <div class="err-box" id="errBox">
@@ -933,7 +1037,7 @@ footer strong {
       💫 Designed with intuition · Built with dedication by <strong>Munira</strong> · 🌈 Always verify independently
     </div>
     <div style="font-size: 0.55rem; opacity: 0.4; margin-top: 8px;">
-      ⚡ This tool is for educational & research purposes only · Not financial advice · DYOR always applies
+      ⚡ This tool is for educational & research purposes only and I have made it for Project · Not financial advice · DYOR always applies
     </div>
   </div>
 </footer>
