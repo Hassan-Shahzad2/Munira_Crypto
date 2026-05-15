@@ -545,7 +545,7 @@ if __name__ == '__main__':
     print("   • AI agent appears first for quick security questions")
     print("   • Beautiful pink/purple design")
     print("   • Real-time wallet scanning")
-    print("   • Advanced fraud detection")
+    print("   • Advanced fraud detection. ")
     print("\n" + "=" * 60 + "\n")
 
     app.run(host='0.0.0.0', port=port, debug=True)
